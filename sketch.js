@@ -383,8 +383,20 @@ function chordNotes(name) {
 
 // ★★★★★★ 第 4 步 开始：把这里的 strum 函数整个换成 Qwen 写的版本 ★★★★★★
 function strum(notes, direction) {
-  // 临时版本：所有的音同时响
-  for (const n of notes) playString(n, 0);
+  // 1. 确定扫弦的顺序
+  let order;
+  if (direction === "down") {
+    // 下扫：从低音到高音，保持原顺序
+    order = notes;
+  } else {
+    // 上扫：从高音到低音，复制一份并倒过来
+    order = [...notes].reverse();
+  }
+
+  // 2. 一根一根地弹，每根弦晚 0.035 秒
+  for (let i = 0; i < order.length; i++) {
+    playString(order[i], i * 0.035);
+  }
 }
 // ★★★★★★ 第 4 步 结束 ★★★★★★
 
