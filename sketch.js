@@ -287,14 +287,26 @@ function doStrum(direction) {
 
 // ★★★★★★ 第 1 步 开始：把这里的 drawFragment 函数整个换成 Qwen 写的版本 ★★★★★★
 function drawFragment(f) {
-  // 临时版本：一个不转、没有轮廓的长方形
+  // 画一块立体主义碎片：转了角度的长方形，黑色轮廓，左半边在阴影里，上面再画纹理
   push();
   translate(f.x, f.y);
+  rotate(f.rot);
   rectMode(CENTER);
-  noStroke();
+
+  // 主体：黑色轮廓的长方形
+  stroke(30);
+  strokeWeight(2);
   fill(f.col);
   rect(0, 0, f.w, f.h);
+
+  // 左半边的阴影
+  noStroke();
+  fill(0, 45);
+  rect(-f.w / 4, 0, f.w / 2, f.h);
+
+  // 纹理
   drawTexture(f.kind, f.w, f.h);
+
   pop();
 }
 // ★★★★★★ 第 1 步 结束 ★★★★★★
