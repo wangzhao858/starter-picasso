@@ -402,8 +402,20 @@ function strum(notes, direction) {
 
 // ★★★★★★ 第 5 步 开始：把这里的 shuffleCollage 函数整个换成 Qwen 写的版本 ★★★★★★
 function shuffleCollage(colors) {
-  // 临时版本：只换颜色，不动
-  for (const f of fragments) f.col = random(colors);
+  // 遍历所有碎片，给它们设置新的目标位置、角度和颜色
+  for (const f of fragments) {
+    // 1. 新的目标 X 坐标：在原位置附近随机偏移
+    f.tx = f.homeX + random(-60, 60);
+    
+    // 2. 新的目标 Y 坐标：在原位置附近随机偏移
+    f.ty = f.homeY + random(-60, 60);
+    
+    // 3. 新的目标旋转角度
+    f.trot = random(-0.5, 0.5);
+    
+    // 4. 从当前和弦对应的颜色数组中随机选一个颜色
+    f.col = random(colors);
+  }
 }
 // ★★★★★★ 第 5 步 结束 ★★★★★★
 
