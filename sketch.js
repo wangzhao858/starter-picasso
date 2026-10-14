@@ -313,7 +313,48 @@ function drawFragment(f) {
 
 // ★★★★★★ 第 2 步 开始：把这里的 drawTexture 函数整个换成 Qwen 写的版本 ★★★★★★
 function drawTexture(kind, w, h) {
-  // 临时版本：还没有纹理
+  // 1. 报纸纹理 (news)
+  if (kind === "news") {
+    stroke(40, 100);
+    strokeWeight(2);
+    for (let y = -h / 2 + 28; y < h / 2 - 6; y += 8) {
+      line(-w / 2 + 6, y, w / 2 - 6, y);
+    }
+    noStroke();
+    fill(30);
+    textAlign(CENTER, TOP);
+    textStyle(BOLD);
+    textSize(18);
+    text("JOU", 0, -h / 2 + 4);
+    textStyle(NORMAL);
+  }
+  
+  // 2. 木纹纹理 (wood)
+  else if (kind === "wood") {
+    noFill();
+    stroke(90, 60, 30, 150);
+    strokeWeight(1.5);
+    for (let y = -h / 2 + 8; y < h / 2; y += 10) {
+      beginShape();
+      for (let x = -w / 2; x <= w / 2; x += 10) {
+        vertex(x, y + sin(x * 0.05 + y) * 3);
+      }
+      endShape();
+    }
+  }
+  
+  // 3. 圆点纹理 (dots)
+  else if (kind === "dots") {
+    noStroke();
+    fill(30, 140);
+    for (let x = -w / 2 + 8; x < w / 2; x += 12) {
+      for (let y = -h / 2 + 8; y < h / 2; y += 12) {
+        circle(x, y, 4);
+      }
+    }
+  }
+  
+  // 如果是 "plain"，则什么都不画
 }
 // ★★★★★★ 第 2 步 结束 ★★★★★★
 
